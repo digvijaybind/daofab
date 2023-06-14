@@ -8,6 +8,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TablePagination from "@material-ui/core/TablePagination";
 import Paper from "@material-ui/core/Paper";
+import {Button} from "@mui/material";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles({
   table: {
@@ -66,7 +68,16 @@ export default function Parent() {
                 </TableCell>
                 <TableCell align="right">{row.sender}</TableCell>
                 <TableCell align="right">{row.receiver}</TableCell>
-                <TableCell align="right">{row.totalAmount}</TableCell>
+                <TableCell align="right">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    component={Link}
+                    to={`/child?id=${row.id}`}
+                  >
+                    {row.totalAmount}{" "}
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
           {emptyRows > 0 && (
