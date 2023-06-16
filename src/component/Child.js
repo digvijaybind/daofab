@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -8,7 +8,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TablePagination from "@material-ui/core/TablePagination";
 import Paper from "@material-ui/core/Paper";
-import { useSearchParams } from "react-router-dom";
+import {useSearchParams} from "react-router-dom";
+import {Typography} from "@material-ui/core";
 
 const useStyles = makeStyles({
   table: {
@@ -44,20 +45,19 @@ export default function Child() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(2);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [rowList, setRowList] = useState([])
+  const [rowList, setRowList] = useState([]);
   let rowId = searchParams.get("id");
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
   useEffect(() => {
-    let filterList = rows?.filter((data)=>{
-      if(rowId == data.id){
-        return data
+    let filterList = rows?.filter((data) => {
+      if (rowId == data.id) {
+        return data;
       }
-    })
+    });
     setRowList(filterList);
-
   }, [rowId]);
 
   const handleChangeRowsPerPage = (event) => {
@@ -69,6 +69,9 @@ export default function Child() {
 
   return (
     <TableContainer component={Paper}>
+      <Typography variant="h5" color="blue">
+        Children table
+      </Typography>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>

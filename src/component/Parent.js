@@ -8,12 +8,13 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TablePagination from "@material-ui/core/TablePagination";
 import Paper from "@material-ui/core/Paper";
-import {Button} from "@mui/material";
+import {Box, Button} from "@mui/material";
 import {Link} from "react-router-dom";
+import {Typography} from "@material-ui/core";
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 650,
+    margin: "auto",
   },
 });
 
@@ -27,8 +28,7 @@ const rows = [
   createData(3, "XYZ", "MNP", 300),
   createData(4, "ABC", "MNP", 1000),
   createData(5, "XYZ", "ABC", 200),
-  createData(1, "ABC", "XYZ", 50),
-  createData(1, "MNP", "PQRS", 200),
+  createData(6, "ABC", "XYZ", 50),
   createData(7, "ABC", "PQRS", 200),
 ];
 
@@ -47,9 +47,14 @@ export default function Parent() {
   const emptyRows =
     rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
+  const numAscending = [...rows].sort((a, b) => a.id - b.id);
+
   return (
     <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
+      <Typography variant="h5" color="blue">
+        Parent table
+      </Typography>
+      <Table aria-label="simple table" className={classes.table}>
         <TableHead>
           <TableRow>
             <TableCell>id</TableCell>
@@ -87,15 +92,29 @@ export default function Parent() {
           )}
         </TableBody>
       </Table>
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
+      <Box
         component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
-      />
+        flexGrow={1}
+        justifyContent="center"
+        alignItems="baseline"
+      >
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => numAscending}
+        >
+          sort by Parent id{" "}
+        </Button>
+      </Box>
     </TableContainer>
   );
 }
